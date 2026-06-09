@@ -1,0 +1,45 @@
+{
+  "browser": {
+    "login_url": "https://glados.rocks/login",
+    "checkin_url": "https://glados.rocks/console/checkin",
+    "channel": "chrome",
+    "executable_path": "",
+    "headless": true,
+    "locale": "zh-CN",
+    "timezone_id": "Asia/Shanghai",
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36",
+    "user_data_dir": "~/glados-auto-checkin/browser-profile",
+    "artifacts_dir": "~/glados-auto-checkin/artifacts",
+    "manual_login_timeout_seconds": 900,
+    "navigation_timeout_seconds": 90,
+    "action_timeout_seconds": 20,
+    "post_click_wait_seconds": 5,
+    "retain_artifact_runs": 20,
+    "seed_cookie_header": ""
+  },
+  "mail": {
+    "enabled": false,
+    "smtp_host": "smtp.example.com",
+    "smtp_port": 587,
+    "smtp_username": "your-email@example.com",
+    "smtp_password": "PASTE_APP_PASSWORD_HERE",
+    "from_addr": "your-email@example.com",
+    "to_addrs": [
+      "recipient@example.com"
+    ],
+    "subject_prefix": "[GLaDOS Check-in]",
+    "use_starttls": true,
+    "use_ssl": false
+  },
+  "schedule": {
+    "window_start": "12:00",
+    "window_end": "16:00"
+  },
+  "runtime": {
+    "retry_count": 5,
+    "retry_delay_seconds": 20,
+    "lock_stale_seconds": 28800,
+    "state_file": "~/glados-auto-checkin/state.json",
+    "log_file": "~/glados-auto-checkin/logs/checkin.log"
+  }
+}

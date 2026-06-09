@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "glados-auto-checkin"
+version = "0.1.0"
+description = "Cross-platform browser automation for GLaDOS daily check-in."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+  { name = "Open Release Template" }
+]
+dependencies = [
+  "platformdirs>=4.2",
+  "playwright>=1.45"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.2"
+]
+
+[project.scripts]
+glados-auto-checkin = "glados_auto_checkin.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
