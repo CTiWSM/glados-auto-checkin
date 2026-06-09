@@ -127,6 +127,22 @@ Best if you already know how to copy authenticated cookies.
 - Choose Cookie mode
 - Paste the Cookie header when asked
 
+You can also configure it manually in your local config file:
+
+```json
+{
+  "browser": {
+    "seed_cookie_header": "koa:sess=PASTE_YOUR_VALUE_HERE; koa:sess.sig=PASTE_YOUR_SIGNATURE_HERE"
+  }
+}
+```
+
+Only paste the full `Cookie` request header for your own account. Do not commit your real Cookie to this repository, do not paste it into issues, and do not share it with other people. If the Cookie expires, paste a fresh one or switch back to browser-login mode:
+
+```bash
+glados-auto-checkin bootstrap-login
+```
+
 ## Email Alerts / 邮件告警
 
 Email alerts are optional. If enabled, the tool only sends mail when a run fails.
