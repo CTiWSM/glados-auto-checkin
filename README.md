@@ -1,100 +1,100 @@
-# GLaDOS Auto Check-in
+# GLaDOS 自动签到
 
-Cross-platform browser automation for **GLaDOS daily check-in**.
+英文版：[README_EN.md](README_EN.md)
 
-跨平台的 GLaDOS 自动签到工具，面向个人自用部署，兼容 **Windows / macOS / Linux**。
+这是一个基于 **Python + Playwright** 的跨平台 GLaDOS 每日自动签到工具，面向个人自用部署，兼容 **Windows / macOS / Linux**。
 
-## What This Project Does / 项目功能
+## 项目功能
 
-- Opens the GLaDOS check-in page with Playwright.
-- Reuses a dedicated browser profile or a pasted Cookie.
-- Clicks the daily check-in button automatically.
-- Installs a daily scheduled task for your operating system.
-- Optionally sends failure notification emails.
+- 打开 GLaDOS 签到页面
+- 复用专用浏览器配置，或使用手动粘贴的 Cookie
+- 自动点击每日签到按钮
+- 为当前操作系统安装每日定时任务
+- 可选：在运行失败时发送邮件告警
 
 这个项目只专注一件事：为你自己的 GLaDOS 账号执行每日自动签到。
 
-## Beginner-Friendly Setup / 新手友好
+## 新手友好
 
-This project includes:
+项目包含：
 
-- Interactive setup wizard: `glados-auto-checkin init`
-- Two authentication modes: browser login or pasted Cookie
-- Daily scheduler installation
-- Optional email alerts
-- Detailed docs for setup and troubleshooting
+- 交互式初始化向导：`glados-auto-checkin init`
+- 两种登录方式：浏览器登录一次，或粘贴 Cookie
+- 每日定时任务安装
+- 可选邮件告警
+- 安装、常见问题和故障排查文档
 
-If you are new to JSON, SMTP, Playwright, or system schedulers, start here:
+如果你不熟悉 JSON、SMTP、Playwright 或系统定时任务，建议先阅读：
 
-1. [Quick Start](docs/QUICK_START.md)
-2. [FAQ](docs/FAQ.md)
-3. [Troubleshooting](docs/TROUBLESHOOTING.md)
+1. [快速上手](docs/QUICK_START.md)
+2. [常见问题](docs/FAQ.md)
+3. [故障排查](docs/TROUBLESHOOTING.md)
 
-## Responsible Use / 使用边界
-
-Use this tool **only for your own GLaDOS account**.
+## 使用边界
 
 请只把它用于你自己的 GLaDOS 账号。不要把他人的 Cookie、账号或登录状态交给本工具使用。
 
-## Features / 功能
+## 功能特性
 
-- Browser automation based on `Python + Playwright`
-- Daily schedule window with random execution inside the window
-- Default schedule window: `12:00-16:00`
-- Two authentication modes:
-  - Browser login once
-  - Paste an existing Cookie header
-- Optional SMTP email alerts on failure
-- Cross-platform scheduler support:
-  - Linux: `systemd`
-  - macOS: `launchd`
-  - Windows: Task Scheduler
+- 基于 `Python + Playwright` 的浏览器自动化
+- 每日时间窗口内随机执行
+- 默认执行窗口：`12:00-16:00`
+- 两种认证方式：
+  - 浏览器登录一次
+  - 粘贴已有 Cookie 请求头
+- 可选 SMTP 邮件失败告警
+- 跨平台定时任务支持：
+  - Linux：`systemd`
+  - macOS：`launchd`
+  - Windows：任务计划程序
 
-## Quick Install / 快速安装
+## 快速安装
 
-### 1. Install Python / 安装 Python
+### 1. 安装 Python
 
-Use **Python 3.10+**.
+需要 **Python 3.10+**。
 
-### 2. Install the package / 安装项目
+### 2. 安装项目
+
+在项目目录中运行：
 
 ```bash
 pip install .
 ```
 
-### 3. Run the interactive wizard / 运行初始化向导
+### 3. 运行初始化向导
 
 ```bash
 glados-auto-checkin init
 ```
 
-### 4. Validate your environment / 检查环境
+### 4. 检查运行环境
 
 ```bash
 glados-auto-checkin validate
 ```
 
-### 5. Sign in once / 首次登录
+### 5. 首次登录
 
-Recommended for beginners:
+推荐新手使用浏览器登录模式：
 
 ```bash
 glados-auto-checkin bootstrap-login
 ```
 
-### 6. Test a manual run / 手动测试一次
+### 6. 手动测试一次
 
 ```bash
 glados-auto-checkin checkin
 ```
 
-### 7. Install the daily scheduler / 安装每日定时任务
+### 7. 安装每日定时任务
 
 ```bash
 glados-auto-checkin install-schedule
 ```
 
-## Main Commands / 主要命令
+## 主要命令
 
 ```bash
 glados-auto-checkin init
@@ -108,65 +108,45 @@ glados-auto-checkin test-email
 glados-auto-checkin clear-browser-state
 ```
 
-## Authentication Modes / 登录方式
+## 登录方式
 
-### Option A: Browser Login Once
+### 方式一：浏览器登录一次
 
-Best for beginners.
+最适合新手。
 
-- Run `glados-auto-checkin bootstrap-login`
-- A visible browser opens
-- Log in manually
-- The tool saves a dedicated browser profile for future runs
+- 运行 `glados-auto-checkin bootstrap-login`
+- 程序会打开一个可见浏览器窗口
+- 你在浏览器中手动登录
+- 工具会保存一个专用浏览器配置，后续运行会复用这个登录状态
 
-### Option B: Paste Cookie
-
-Use this mode if you already know how to copy an authenticated browser Cookie, or if browser-login mode is not convenient on your machine.
+### 方式二：粘贴 Cookie
 
 如果你已经会从浏览器复制登录后的 Cookie，或者你的机器不方便使用浏览器登录模式，可以使用这个方式。
 
-#### How to get the Cookie from Chrome or Edge / 如何从 Chrome 或 Edge 获取 Cookie
+#### 如何从 Chrome 或 Edge 获取 Cookie
 
-1. Open Chrome or Edge and log in to your own GLaDOS account.
+1. 打开 Chrome 或 Edge，登录你自己的 GLaDOS 账号。
 
-   打开 Chrome 或 Edge，登录你自己的 GLaDOS 账号。
-
-2. Go to the signed-in GLaDOS page, for example:
-
-   进入已登录状态下的 GLaDOS 页面，例如：
+2. 进入已登录状态下的 GLaDOS 页面，例如：
 
    ```text
    https://glados.rocks/console/checkin
    ```
 
-3. Open Developer Tools.
+3. 打开开发者工具：
 
-   打开开发者工具：
+   - Windows / Linux：按 `F12` 或 `Ctrl+Shift+I`
+   - macOS：按 `Option+Command+I`
 
-   - Windows / Linux: press `F12` or `Ctrl+Shift+I`
-   - macOS: press `Option+Command+I`
+4. 切换到 `Network` 网络面板。
 
-4. Switch to the `Network` tab.
+5. 刷新页面，或者点击一次签到/状态按钮，让浏览器产生网络请求。
 
-   切换到 `Network` 网络面板。
+6. 在请求列表中点击一个发往 `glados.rocks` 的请求，比如 URL 中包含 `status`、`checkin`、`user` 或 `console` 的请求。
 
-5. Refresh the page, or click the check-in/status button once.
+7. 在请求详情中打开 `Headers`，找到 `Request Headers`。
 
-   刷新页面，或者点击一次签到/状态按钮，让浏览器产生网络请求。
-
-6. Click a request sent to `glados.rocks`, such as a request containing `status`, `checkin`, `user`, or `console`.
-
-   在请求列表中点击一个发往 `glados.rocks` 的请求，比如 URL 中包含 `status`、`checkin`、`user` 或 `console` 的请求。
-
-7. In the request details, open `Headers`, then find `Request Headers`.
-
-   在请求详情中打开 `Headers`，找到 `Request Headers`。
-
-8. Find the `Cookie` header and copy its value.
-
-   找到 `Cookie` 请求头，复制它后面的值。
-
-   Copy the value after `Cookie:`, not the whole request headers. It should look similar to this placeholder example:
+8. 找到 `Cookie` 请求头，复制它后面的值。
 
    只复制 `Cookie:` 后面的值，不要复制整段请求头。它大概会像下面这个占位示例：
 
@@ -174,29 +154,17 @@ Use this mode if you already know how to copy an authenticated browser Cookie, o
    koa:sess=PASTE_YOUR_VALUE_HERE; koa:sess.sig=PASTE_YOUR_SIGNATURE_HERE
    ```
 
-   A valid GLaDOS login Cookie normally contains both `koa:sess` and `koa:sess.sig`. If you cannot find them, make sure you are logged in and that you selected a request to `glados.rocks`.
-
    有效的 GLaDOS 登录 Cookie 通常同时包含 `koa:sess` 和 `koa:sess.sig`。如果找不到它们，请确认你已经登录，并且选中的是发往 `glados.rocks` 的请求。
 
-#### Configure the tool with the Cookie / 将 Cookie 配置到工具中
-
-Recommended method:
+#### 将 Cookie 配置到工具中
 
 推荐方式：
-
-- Run `glados-auto-checkin init`
-- Choose Cookie mode
-- Paste the Cookie header when asked
-
-运行：
 
 ```bash
 glados-auto-checkin init
 ```
 
-然后选择 Cookie 模式，并在提示时粘贴刚才复制的 Cookie header。
-
-You can also configure it manually in your local config file:
+然后选择 Cookie 模式，并在提示时粘贴刚才复制的 Cookie 请求头值。
 
 也可以手动写入你的本地配置文件：
 
@@ -208,20 +176,16 @@ You can also configure it manually in your local config file:
 }
 ```
 
-Only paste the full `Cookie` request header for your own account. Keep it as one line. Do not add `Cookie:` at the beginning.
-
 只粘贴你自己账号的完整 `Cookie` 请求头值，并尽量保持为一行。不要在开头额外加 `Cookie:`。
 
-#### Cookie safety / Cookie 安全提醒
-
-Your Cookie is equivalent to a temporary login credential.
+#### Cookie 安全提醒
 
 Cookie 相当于临时登录凭据。
 
-- Do not commit your real Cookie to this repository.
-- Do not paste it into GitHub issues, chat messages, screenshots, or logs.
-- Do not share it with other people.
-- If it leaks, log out of GLaDOS in your browser and change your password if needed.
+- 不要把真实 Cookie 提交到仓库
+- 不要把真实 Cookie 粘贴到 GitHub issue、聊天消息、截图或日志里
+- 不要与他人分享 Cookie
+- 如果 Cookie 泄漏，请在浏览器中退出 GLaDOS；必要时修改密码
 
 如果 Cookie 过期，可以重新复制一个新的 Cookie，或者切回浏览器登录模式：
 
@@ -229,25 +193,23 @@ Cookie 相当于临时登录凭据。
 glados-auto-checkin bootstrap-login
 ```
 
-## Email Alerts / 邮件告警
-
-Email alerts are optional. If enabled, the tool only sends mail when a run fails.
+## 邮件告警
 
 邮件告警是可选功能。开启后，程序只会在运行失败时发送通知邮件。
 
-## Personal Data Policy / 个人信息处理
+## 个人信息处理
 
-The published source code should not contain:
+公开源码不应包含：
 
-- Your email address
-- Your Cookie
-- Your hostname
-- Your personal absolute paths
-- Your screenshots or runtime logs
+- 你的邮箱地址
+- 你的 Cookie
+- 你的主机名
+- 你的个人绝对路径
+- 你的截图或运行日志
 
-Runtime data is stored outside the source tree by default, and local runtime folders are ignored by `.gitignore`.
+运行数据默认保存在源码目录之外，本地运行目录也已经被 `.gitignore` 忽略。
 
-## Project Structure / 项目结构
+## 项目结构
 
 ```text
 glados-auto-checkin/
@@ -255,5 +217,6 @@ glados-auto-checkin/
 ├── tests/
 ├── docs/
 ├── config.example.json
-└── README.md
+├── README.md
+└── README_EN.md
 ```
