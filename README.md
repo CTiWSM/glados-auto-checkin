@@ -121,13 +121,84 @@ Best for beginners.
 
 ### Option B: Paste Cookie
 
-Best if you already know how to copy authenticated cookies.
+Use this mode if you already know how to copy an authenticated browser Cookie, or if browser-login mode is not convenient on your machine.
+
+如果你已经会从浏览器复制登录后的 Cookie，或者你的机器不方便使用浏览器登录模式，可以使用这个方式。
+
+#### How to get the Cookie from Chrome or Edge / 如何从 Chrome 或 Edge 获取 Cookie
+
+1. Open Chrome or Edge and log in to your own GLaDOS account.
+
+   打开 Chrome 或 Edge，登录你自己的 GLaDOS 账号。
+
+2. Go to the signed-in GLaDOS page, for example:
+
+   进入已登录状态下的 GLaDOS 页面，例如：
+
+   ```text
+   https://glados.rocks/console/checkin
+   ```
+
+3. Open Developer Tools.
+
+   打开开发者工具：
+
+   - Windows / Linux: press `F12` or `Ctrl+Shift+I`
+   - macOS: press `Option+Command+I`
+
+4. Switch to the `Network` tab.
+
+   切换到 `Network` 网络面板。
+
+5. Refresh the page, or click the check-in/status button once.
+
+   刷新页面，或者点击一次签到/状态按钮，让浏览器产生网络请求。
+
+6. Click a request sent to `glados.rocks`, such as a request containing `status`, `checkin`, `user`, or `console`.
+
+   在请求列表中点击一个发往 `glados.rocks` 的请求，比如 URL 中包含 `status`、`checkin`、`user` 或 `console` 的请求。
+
+7. In the request details, open `Headers`, then find `Request Headers`.
+
+   在请求详情中打开 `Headers`，找到 `Request Headers`。
+
+8. Find the `Cookie` header and copy its value.
+
+   找到 `Cookie` 请求头，复制它后面的值。
+
+   Copy the value after `Cookie:`, not the whole request headers. It should look similar to this placeholder example:
+
+   只复制 `Cookie:` 后面的值，不要复制整段请求头。它大概会像下面这个占位示例：
+
+   ```text
+   koa:sess=PASTE_YOUR_VALUE_HERE; koa:sess.sig=PASTE_YOUR_SIGNATURE_HERE
+   ```
+
+   A valid GLaDOS login Cookie normally contains both `koa:sess` and `koa:sess.sig`. If you cannot find them, make sure you are logged in and that you selected a request to `glados.rocks`.
+
+   有效的 GLaDOS 登录 Cookie 通常同时包含 `koa:sess` 和 `koa:sess.sig`。如果找不到它们，请确认你已经登录，并且选中的是发往 `glados.rocks` 的请求。
+
+#### Configure the tool with the Cookie / 将 Cookie 配置到工具中
+
+Recommended method:
+
+推荐方式：
 
 - Run `glados-auto-checkin init`
 - Choose Cookie mode
 - Paste the Cookie header when asked
 
+运行：
+
+```bash
+glados-auto-checkin init
+```
+
+然后选择 Cookie 模式，并在提示时粘贴刚才复制的 Cookie header。
+
 You can also configure it manually in your local config file:
+
+也可以手动写入你的本地配置文件：
 
 ```json
 {
@@ -137,7 +208,22 @@ You can also configure it manually in your local config file:
 }
 ```
 
-Only paste the full `Cookie` request header for your own account. Do not commit your real Cookie to this repository, do not paste it into issues, and do not share it with other people. If the Cookie expires, paste a fresh one or switch back to browser-login mode:
+Only paste the full `Cookie` request header for your own account. Keep it as one line. Do not add `Cookie:` at the beginning.
+
+只粘贴你自己账号的完整 `Cookie` 请求头值，并尽量保持为一行。不要在开头额外加 `Cookie:`。
+
+#### Cookie safety / Cookie 安全提醒
+
+Your Cookie is equivalent to a temporary login credential.
+
+Cookie 相当于临时登录凭据。
+
+- Do not commit your real Cookie to this repository.
+- Do not paste it into GitHub issues, chat messages, screenshots, or logs.
+- Do not share it with other people.
+- If it leaks, log out of GLaDOS in your browser and change your password if needed.
+
+如果 Cookie 过期，可以重新复制一个新的 Cookie，或者切回浏览器登录模式：
 
 ```bash
 glados-auto-checkin bootstrap-login
